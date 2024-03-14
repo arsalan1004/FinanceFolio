@@ -16,7 +16,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5084",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "FirebaseProject": "authfinancefolio"
       }
     },
     "IIS Express": {
@@ -26,7 +27,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "GOOGLE_APPLICATION_CREDENTIALS": "./firebaseAuth_sdk.json",
-        "FirebaseProject": "AuthFinanceFolio"
+        "FirebaseProject": "authfinancefolio"
       }
     }
   }

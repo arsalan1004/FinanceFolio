@@ -8,7 +8,6 @@ Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "./firebase
 var projectName = Environment.GetEnvironmentVariable("FirebaseProject");
 
 // Add services to the container.
-
 builder.Services.AddApiDependencies();
 
 // DB CONTEXT INJECTION

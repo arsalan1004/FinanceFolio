@@ -2,7 +2,6 @@ using FinanceFolio.Data;
 using FinanceFolio.Models;
 using FinanceFolio.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceFolio.Controllers.LoginSignup;
@@ -15,7 +14,8 @@ public class LoginSignupController : Controller
     private readonly FinanceFolioContext _financeFolioContext;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public LoginSignupController(Authentication firebaseAuth, FinanceFolioContext financeFolioContext, IHttpContextAccessor httpContextAccessor)
+    public LoginSignupController(Authentication firebaseAuth, FinanceFolioContext financeFolioContext, 
+        IHttpContextAccessor httpContextAccessor)
     {
         this._firebaseAuth = firebaseAuth;
         this._financeFolioContext = financeFolioContext;
@@ -29,7 +29,14 @@ public class LoginSignupController : Controller
     {
         try
         {
-            _financeFolioContext.Add(userData);
+            var user = new User
+            {
+                Username = userData.Username,
+                Email = userData.Email,
+                Password = userData.Password
+            };
+            
+            _financeFolioContext.Users.Add(user);
             var token = await _firebaseAuth.Signup(userData.Email, userData.Password);
 
             if (token is null) return BadRequest();
@@ -63,14 +70,12 @@ public class LoginSignupController : Controller
             throw;
         }   
     }
-
-    [HttpGet]
-    [Authorize]
-    [Route("/user/{id:int}")]
-    public async Task<IActionResult> GetUser([FromRoute] int id)
-    {
-        var user = await _financeFolioContext.FindAsync<User>(id);
-        return Ok(id);
-    }
-    
+    // [HttpGet]
+    // [Authorize]
+    // [Route("/user/{id:int}")]
+    // public async Task<IActionResult> GetUser([FromRoute] int id)
+    // {
+    //     var user = await _financeFolioContext.FindAsync<User>(id);
+    //     return Ok(id);
+    // }
 }

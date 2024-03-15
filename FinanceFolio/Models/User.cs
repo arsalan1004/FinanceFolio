@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceFolio.Models;
 
@@ -12,7 +13,5 @@ public class User
     public string Email { get; set; }
     [Required]
     public string Password { get; set; }
-    
-    [Required, Compare(nameof(Password), ErrorMessage = "The passwords didn't match.")]
-    public required string ConfirmPassword { get; set; }
+
 }

@@ -2,6 +2,7 @@
 using FinanceFolio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinanceFolio.Migrations
 {
     [DbContext(typeof(FinanceFolioContext))]
-    partial class FinanceFolioContextModelSnapshot : ModelSnapshot
+    [Migration("20240316094042_PrecautionaryMigration")]
+    partial class PrecautionaryMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,27 +47,6 @@ namespace FinanceFolio.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("FinanceFolio.Models.Category", b =>
-                {
-                    b.Property<int>("categoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("categoryId"));
-
-                    b.Property<string>("categoryName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("categoryType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("categoryId");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FinanceFolio.Models.User", b =>

@@ -66,10 +66,15 @@ public class AccountsController: Controller
 
             return Ok(userAccount);
         }
-        catch (Exception e)
+        catch (DbUpdateException e)
         {
             Console.WriteLine(e);
-            return BadRequest();
+            return BadRequest(e.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return BadRequest(ex.Message);
         }
     }
 }

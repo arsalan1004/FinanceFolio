@@ -36,7 +36,7 @@ public class LoginSignupController : Controller
                 Password = userData.Password
             };
             
-            _financeFolioContext.Users.Add(user);
+            _financeFolioContext.User.Add(user);
             var token = await _firebaseAuth.Signup(userData.Email, userData.Password);
 
             if (token is null) return BadRequest();

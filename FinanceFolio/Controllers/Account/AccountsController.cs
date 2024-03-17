@@ -1,12 +1,10 @@
 using FinanceFolio.Data;
-using FinanceFolio.Models;
-using FinanceFolio.Models.DTO;
 using FinanceFolio.Models.DTO.AccountDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinanceFolio.Controllers.Accounts;
+namespace FinanceFolio.Controllers.Account;
 
 [ApiController, Route("/accounts")]
 public class AccountsController: Controller
@@ -24,7 +22,7 @@ public class AccountsController: Controller
     {
         try
         {
-            var accountsQuery = await (from acc in _financeFolioContext.Accounts
+            var accountsQuery = await (from acc in _financeFolioContext.Account
                 where acc.userId == userId
                 select acc).ToListAsync();
 
@@ -54,14 +52,14 @@ public class AccountsController: Controller
     {
         try
         {
-            var userAccount = new Account
+            var userAccount = new Models.Account
             {
                 balance = 0,
                 accountType = postAccount.accountType,
                 userId = postAccount.userId
             };
 
-            _financeFolioContext.Accounts.Add(userAccount);
+            _financeFolioContext.Account.Add(userAccount);
             await _financeFolioContext.SaveChangesAsync();
 
             return Ok(userAccount);

@@ -23,9 +23,9 @@ public class CategoryController : Controller
         try
         {
             var incomeCategories =
-                await _financeFolioContext.Categories.Where(cat => cat.categoryType == "Income").ToListAsync();
+                await _financeFolioContext.Category.Where(cat => cat.categoryType == "Income").ToListAsync();
             var expenseCategories =
-                await _financeFolioContext.Categories.Where(cat => cat.categoryType == "Expenses").ToListAsync();
+                await _financeFolioContext.Category.Where(cat => cat.categoryType == "Expenses").ToListAsync();
 
             if (incomeCategories.Count() == 0 || expenseCategories.Count() == 0)
             {
@@ -63,7 +63,7 @@ public class CategoryController : Controller
                 categoryType = categoryDto.categoryType
             };
 
-            _financeFolioContext.Categories.Add(category);
+            _financeFolioContext.Category.Add(category);
             await _financeFolioContext.SaveChangesAsync();
 
             return Ok(category);

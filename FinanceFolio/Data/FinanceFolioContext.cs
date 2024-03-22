@@ -9,7 +9,8 @@ public class FinanceFolioContext : DbContext
     {
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Account> Accounts { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<User> User { get; set; }
+    public DbSet<Account> Account { get; set; }
+    public DbSet<Category> Category { get; set; }
+    public DbSet<Entry> Entry { get; set; }
 }

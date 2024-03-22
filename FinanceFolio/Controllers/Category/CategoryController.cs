@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceFolio.Controllers.Category;
 
-[ApiController, Route("/category")]
+[ApiController]
 public class CategoryController : Controller
 {
     private readonly FinanceFolioContext _financeFolioContext;
 
     public CategoryController(FinanceFolioContext financeFolioContext)
     {
-        _financeFolioContext = financeFolioContext;
+        this._financeFolioContext = financeFolioContext;
     }
     
     // GET ALL CATEGORIES
-    [HttpGet, Authorize, Route("/")]
+    [HttpGet, Authorize, Route("/category")]
     public async Task<IActionResult> GetAllCategories()
     {
         try
@@ -27,7 +27,7 @@ public class CategoryController : Controller
             var expenseCategories =
                 await _financeFolioContext.Category.Where(cat => cat.categoryType == "Expenses").ToListAsync();
 
-            if (incomeCategories.Count() == 0 || expenseCategories.Count() == 0)
+            if (!incomeCategories.Any() || !expenseCategories.Any())
             {
                 return NotFound("Expense or income categories not found");
             }
